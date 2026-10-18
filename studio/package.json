@@ -1,0 +1,24 @@
+{
+  "name": "anna-ratz-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev --port 3333",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "import": "sanity exec scripts/import.ts --with-user-token"
+  },
+  "dependencies": {
+    "@sanity/locale-de-de": "^1.1.37",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.19.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}

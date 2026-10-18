@@ -1,0 +1,44 @@
+{
+  "name": "anna-ratz-fotografie",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "dev:lan": "vite --host 0.0.0.0 --port 5174",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 5174",
+    "lint": "oxlint",
+    "bilder": "python3 tools/bilder-laden.py"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
+    "@sanity/client": "^8.9.0",
+    "@sanity/image-url": "^2.1.1",
+    "client-zip": "^2.5.1",
+    "gsap": "^3.15.0",
+    "motion": "^14.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.64.0",
+    "@cloudflare/workers-types": "^5.20261018.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "wrangler": "^4.151.1"
+  }
+}

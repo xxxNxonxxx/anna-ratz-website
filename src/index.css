@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+/* Richtung A: hell & romantisch. Creme statt Weiß, Salbei als Akzent. */
+@theme {
+  --color-creme: #f7f1e8;
+  --color-sand: #efe6d8;
+  --color-linie: #e0d4c2;
+  --color-tinte: #2b2622;
+  --color-grau: #6e645b;
+  --color-salbei: #7d8b74;
+  --color-salbei-dunkel: #5e6b57;
+  --color-rose: #c9a49a;
+
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+
+  --animate-langsam-zoom: langsam-zoom 18s ease-out both;
+}
+
+@keyframes langsam-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-creme font-sans text-tinte antialiased;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-normal tracking-tight;
+    line-height: 1.08;
+  }
+  ::selection {
+    @apply bg-salbei/30;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-salbei-dunkel;
+  }
+}
+
+@layer components {
+  .ueberzeile {
+    @apply text-[0.72rem] font-semibold tracking-[0.28em] text-salbei-dunkel uppercase;
+  }
+  .knopf {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-tinte px-7 py-3.5 text-sm font-medium tracking-wide text-creme transition hover:bg-salbei-dunkel;
+  }
+  .knopf-hell {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-tinte/25 px-7 py-3.5 text-sm font-medium tracking-wide text-tinte transition hover:border-tinte hover:bg-tinte hover:text-creme;
+  }
+  .rahmen {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

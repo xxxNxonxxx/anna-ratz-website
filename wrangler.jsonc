@@ -1,0 +1,24 @@
+// Cloudflare: Die Website läuft als Worker mit statischen Dateien (dist/).
+// Nur /api/* geht durch worker/index.ts (Kundengalerien), alles andere ist die
+// React-Seite. `npm run dev` simuliert Worker und R2 lokal, ohne Cloudflare-Konto.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "anna-ratz",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // Fotospeicher der Kundengalerien. Ordner pro Galerie:
+  // <ordner>/web/…, <ordner>/original/…, optional <ordner>/alle.zip
+  "r2_buckets": [{ "binding": "FOTOS", "bucket_name": "anna-ratz-galerien" }],
+  "vars": {
+    "SANITY_PROJECT_ID": "l06nfkh0",
+    // privates Dataset: Codes sind dort nicht öffentlich lesbar
+    "SANITY_DATASET": "kunden"
+  }
+  // Geheimnisse (nicht hier, sondern `npx wrangler secret put <NAME>`, lokal in .dev.vars):
+  // SANITY_TOKEN    Lese-Token für das Dataset „kunden“
+  // GALERIE_SECRET  zufälliger Schlüssel zum Signieren der Zugangs-Tokens
+}
