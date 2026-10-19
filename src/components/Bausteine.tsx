@@ -9,7 +9,7 @@ import FadeContent from './reactbits/FadeContent.tsx';
 
 export function Einblenden({ children, className = '', verzoegerung = 0 }: { children: ReactNode; className?: string; verzoegerung?: number }) {
   return (
-    <FadeContent effect="focus" blur={6} duration={1.1} delay={verzoegerung} threshold={0.12} className={className}>
+    <FadeContent effect="fade" blur={3} duration={0.5} delay={verzoegerung * 0.4} threshold={0.05} className={className}>
       {children}
     </FadeContent>
   );

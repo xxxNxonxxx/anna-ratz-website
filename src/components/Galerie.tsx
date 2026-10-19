@@ -23,7 +23,8 @@ export function Galerie({ fotos }: { fotos: Foto[] }) {
       gap={14}
       radius={14}
       animateFrom="bottom"
-      stagger={0.04}
+      stagger={0.015}
+      duration={0.35}
       blurToFocus
       hoverEffect="zoom"
       captions="none"

@@ -30,7 +30,8 @@ export function Start() {
               text="Anna Ratz"
               animateBy="letters"
               direction="bottom"
-              delay={70}
+              delay={35}
+              stepDuration={0.25}
               trigger="load"
               className="mt-4 font-serif text-7xl leading-none sm:text-8xl lg:text-[10rem]"
             />
