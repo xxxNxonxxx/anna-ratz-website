@@ -1,6 +1,7 @@
-"""Legt zwei Demo-Kundengalerien im LOKALEN R2-Speicher an (.wrangler/state).
+"""Legt zwei Demo-Kundengalerien im R2-Speicher an.
 
-  python3 tools/galerie-demo.py
+  python3 tools/galerie-demo.py            # lokal (.wrangler/state)
+  python3 tools/galerie-demo.py --remote   # echter Cloudflare-Speicher (EU)
 
 - demo-lena-paul:    alle Hochzeits-Platzhalterfotos + fertige alle.zip
 - demo-familie-huber: 6 Fotos, ohne alle.zip (testet „Alle herunterladen“ im Browser)
@@ -21,11 +22,12 @@ from PIL import Image
 WEBSITE = Path(__file__).resolve().parent.parent
 QUELLE = WEBSITE / "public" / "bilder" / "hochzeit"
 BUCKET = "anna-ratz-galerien"
+ZIEL = ["--remote", "--jurisdiction", "eu"] if "--remote" in sys.argv else ["--local"]
 
 
 def hochladen(datei: Path, key: str) -> None:
     subprocess.run(
-        ["npx", "wrangler", "r2", "object", "put", f"{BUCKET}/{key}", "--file", str(datei), "--local"],
+        ["npx", "wrangler", "r2", "object", "put", f"{BUCKET}/{key}", "--file", str(datei), *ZIEL],
         cwd=WEBSITE,
         check=True,
         stdout=subprocess.DEVNULL,

@@ -45,13 +45,14 @@ Brautpaare und Familien sehen ihre Fotos unter `/galerie/<adresse>` (EN `/en/gal
 - **Lokal testen:** `npm run dev` simuliert Worker und R2 (`.wrangler/state`), Geheimnisse in `.dev.vars` (`SANITY_TOKEN` = Lese-Token „Website Kundengalerie (lesen)“, `GALERIE_SECRET`). Demo-Fotos: `python3 tools/galerie-demo.py`. Demo-Galerien im Dataset `kunden`: `demo-lena-paul` (Code `LENA-2026`, mit ZIP), `demo-familie-huber` (`HUBER-2026`, ohne ZIP), `demo-abgelaufen` (`ALT-2025-X`). Vor dem Livegang im Studio löschen.
 - **Kosten:** R2 hat keine Download-Gebühren, Speicher ca. 0,015 $/GB und Monat (10 GB gratis). Abgelaufene Galerien sind gesperrt, die Fotos bleiben aber in R2, bis Anna den Ordner löscht (oder eine Lifecycle-Regel im Bucket).
 
-**Für den Livegang (Cloudflare-Konto nötig, noch nicht gemacht):**
-1. Cloudflare-Konto anlegen, R2 aktivieren (Kreditkarte), Bucket `anna-ratz-galerien` mit Standort EU: `npx wrangler r2 bucket create anna-ratz-galerien --jurisdiction eu`. Achtung: Mit EU-Jurisdiktion braucht `wrangler.jsonc` beim Bucket `"jurisdiction": "eu"`.
-2. `npx wrangler secret put SANITY_TOKEN` (Token wie in `.dev.vars`) und `npx wrangler secret put GALERIE_SECRET` (neuer Zufallswert).
-3. `npm run build && npx wrangler deploy` (ersetzt auch das Hosting der ganzen Website), dann Domain im Cloudflare-Dashboard verbinden und als CORS-Origin in Sanity eintragen.
-4. In `studio/.env` `SANITY_STUDIO_WEBSITE_URL=https://<domain>` setzen (sonst zeigt der Kopier-Link auf localhost), dann `cd studio && npm run deploy`.
-5. Für Anna: R2-API-Token (Objekt lesen/schreiben) anlegen und in **Cyberduck** als „Amazon S3“-Verbindung einrichten (Server `<account-id>.r2.cloudflarestorage.com`). Damit zieht sie die Lightroom-Exporte per Drag & Drop in die Ordner.
-6. Cloudflare als Auftragsverarbeiter in die Datenschutzerklärung.
+**Cloudflare (eingerichtet 19. Okt. 2026):** Konto von Gabriel (Account `ab363f53f82f541ae62c8bcb113c3d3e`), R2 aktiv, Bucket `anna-ratz-galerien` mit Standort EU (`"jurisdiction": "eu"` in `wrangler.jsonc`). Worker `anna-ratz` läuft unter **https://anna-ratz.anna-ratz-fotografie.workers.dev** (ganze Website + Galerien), Secrets `SANITY_TOKEN` und `GALERIE_SECRET` (eigener Wert, nicht der aus `.dev.vars`) sind gesetzt. Demo-Fotos liegen dort (`python3 tools/galerie-demo.py --remote`). Studio ist neu deployt, der Kopier-Link zeigt auf die workers.dev-Adresse (`studio/.env`).
+Aktualisieren: `npm run build && npx wrangler deploy`. Test-Kopie ohne Worker: GitHub Pages (`git push`, Workflow `.github/workflows/pages.yml`).
+
+**Noch offen:**
+1. Domain kaufen, im Cloudflare-Dashboard mit dem Worker verbinden, als CORS-Origin in Sanity eintragen, `SANITY_STUDIO_WEBSITE_URL` in `studio/.env` umstellen und Studio neu deployen.
+2. Für Anna: R2-API-Token (Objekt lesen/schreiben, nur dieser Bucket) anlegen und in **Cyberduck** als „Amazon S3“-Verbindung einrichten (Server `<account-id>.eu.r2.cloudflarestorage.com`). Damit zieht sie die Lightroom-Exporte per Drag & Drop in die Ordner.
+3. Cloudflare als Auftragsverarbeiter in die Datenschutzerklärung.
+4. Demo-Galerien löschen (Studio und R2-Ordner `demo-*`).
 
 ## Entscheidungen (17. Okt. 2026)
 
@@ -83,7 +84,7 @@ Brautpaare und Familien sehen ihre Fotos unter `/galerie/<adresse>` (EN `/en/gal
 - [ ] „Über mich“-Geschichte ist ein Entwurf
 - [ ] Impressum und Datenschutzerklärung ausfüllen (Studio → Impressum & Datenschutz)
 - [ ] Anfrage-Formular hat kein Backend, es öffnet das Mailprogramm (`mailto:`). Für echten Versand einen Formular-Dienst anbinden.
-- [ ] Domain und Hosting (geplant: Cloudflare Workers, siehe Kundengalerien); Bundle ist ~257 kB gzip (Code-Splitting möglich, die Galerie ist schon ausgelagert)
-- [ ] Kundengalerien: Cloudflare-Schritte oben, Demo-Galerien löschen
+- [ ] Domain (Hosting läuft auf Cloudflare Workers, siehe Kundengalerien); Bundle ist ~257 kB gzip (Code-Splitting möglich, die Galerie ist schon ausgelagert)
+- [ ] Kundengalerien: offene Schritte oben (Cyberduck für Anna, Datenschutz, Demo-Galerien löschen)
 
 Termine (z. B. Livegang, Fototermine) gehören nach `Leben/kalender.md`, nicht hierher.

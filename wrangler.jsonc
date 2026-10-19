@@ -12,7 +12,7 @@
   },
   // Fotospeicher der Kundengalerien. Ordner pro Galerie:
   // <ordner>/web/…, <ordner>/original/…, optional <ordner>/alle.zip
-  "r2_buckets": [{ "binding": "FOTOS", "bucket_name": "anna-ratz-galerien" }],
+  "r2_buckets": [{ "binding": "FOTOS", "bucket_name": "anna-ratz-galerien", "jurisdiction": "eu" }],
   "vars": {
     "SANITY_PROJECT_ID": "l06nfkh0",
     // privates Dataset: Codes sind dort nicht öffentlich lesbar
